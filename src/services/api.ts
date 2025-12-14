@@ -44,7 +44,11 @@ class BatteryApiService {
   private baseUrl: string;
 
   constructor() {
-    this.baseUrl = import.meta.env.VITE_API_BASE_URL || '';
+    // Use full API URL in production, empty in development (uses proxy)
+    this.baseUrl = import.meta.env.VITE_API_BASE_URL || 
+                   (import.meta.env.PROD 
+                     ? 'https://zenfinity-intern-api-104290304048.europe-west1.run.app' 
+                     : '');
   }
 
   private buildUrl(path: string, params?: Record<string, string>): string {
